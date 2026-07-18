@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Discover Your Power Code — Kevin Polak</title>
+<meta name="description" content="MyPowerCode — Discover your light archetype. Unlock the power you have been apologising for your entire life.">
+<meta property="og:title" content="What is your Power Code? — Kevin Polak">
+<meta property="og:description" content="12 archetypes. One is yours. Discover. Unlock. Become.">
+<meta property="og:image" content="https://mypowercode.app/og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0805;
+  --rose:#C9956C;
+  --rose-dim:rgba(201,149,108,.25);
+  --rose-glow:rgba(201,149,108,.08);
+  --cream:#F5EDD8;
+  --grey:rgba(245,237,216,.5);
+  --line:rgba(201,149,108,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+/* warm candlelit glow */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,100,30,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(201,149,108,.04) 0%, transparent 60%);
+  pointer-events:none;z-index:0;
+}
+/* grain */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.35;
+}
+
+/* PROGRESS */
+.progress{position:fixed;top:0;left:0;right:0;display:flex;gap:4px;padding:14px 16px 0;z-index:20}
+.seg{flex:1;height:2px;background:rgba(245,237,216,.1);border-radius:2px;overflow:hidden}
+.seg i{display:block;height:100%;width:0;background:var(--rose);transition:width .35s}
+.seg.done i{width:100%}
+
+/* CARDS */
+.stage{height:100%;position:relative}
+.card{
+  position:absolute;inset:0;display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:80px 32px 110px;
+  opacity:0;transform:translateY(14px);z-index:1;
+}
+.card.on{display:flex;animation:in .5s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+
+.eyebrow{
+  font-family:'Cinzel',serif;font-size:9.5px;
+  letter-spacing:.30em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:20px;
+}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.1;font-size:clamp(36px,10.5vw,54px)}
+h2{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.1;font-size:clamp(28px,8.5vw,44px)}
+em{font-style:italic;color:var(--rose)}
+.sub{color:var(--grey);font-size:15px;line-height:1.85;max-width:300px;margin-top:20px}
+.rule{width:1px;height:40px;background:linear-gradient(var(--rose),transparent);margin:22px auto 0}
+.diamond{color:var(--rose);font-size:9px;margin:16px auto;display:block;letter-spacing:.3em}
+
+/* LOGO MARK — sacred circle */
+.sacred{
+  width:72px;height:72px;
+  border:1px solid var(--rose-dim);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 22px;
+  position:relative;
+}
+.sacred::before{
+  content:'';position:absolute;
+  width:48px;height:48px;
+  border:1px solid rgba(201,149,108,.15);
+  border-radius:50%;
+}
+.sacred-inner{
+  font-family:'Cinzel',serif;font-size:13px;
+  color:var(--rose);letter-spacing:.08em;font-weight:600;
+}
+
+/* ARCHETYPE GRID */
+.arch-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:8px;margin-top:24px;width:100%;max-width:300px;
+}
+.arch-item{
+  border:1px solid var(--line);
+  padding:8px 4px;
+  font-family:'Cinzel',serif;font-size:7.5px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--rose);text-align:center;
+  background:var(--rose-glow);
+}
+
+/* QUESTION CARDS */
+.q-card{
+  border:1px solid var(--line);
+  padding:16px 18px;
+  background:var(--rose-glow);
+  width:100%;max-width:300px;
+  margin-top:8px;text-align:left;
+}
+.q-num{font-size:9px;letter-spacing:.2em;color:var(--rose);margin-bottom:4px;font-family:'Cinzel',serif;text-transform:uppercase}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--cream);line-height:1.4}
+
+/* STAT */
+.stat{display:flex;gap:22px;margin-top:24px}
+.stat div{text-align:center}
+.stat .n{font-family:'Cormorant Garamond',serif;font-size:32px;color:var(--rose);line-height:1}
+.stat .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-top:5px}
+
+/* PRICE */
+.price-wrap{margin-top:22px;text-align:center}
+.price-big{font-family:'Cormorant Garamond',serif;font-size:64px;color:var(--rose);line-height:1}
+.price-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--grey);margin-top:8px}
+
+/* CTA */
+.btn{
+  display:inline-block;margin-top:28px;
+  border:1px solid var(--rose);
+  background:var(--rose);color:#1a0d00;
+  text-decoration:none;
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:17px 34px;font-weight:700;
+  position:relative;z-index:15;
+  box-shadow:0 0 30px rgba(201,149,108,.2);
+}
+.ghost{background:none;color:var(--rose);font-weight:400;box-shadow:none}
+
+/* HINT */
+.hint{
+  position:fixed;bottom:32px;left:0;right:0;
+  text-align:center;z-index:20;
+  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(245,237,216,.28);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:.28}50%{opacity:.75}}
+.zone{position:fixed;top:0;bottom:0;width:34%;z-index:10}
+.zone.l{left:0}.zone.r{right:0;width:66%}
+
+/* DESKTOP */
+.desktop{
+  display:none;position:fixed;inset:0;
+  background:var(--ink);z-index:100;
+  flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:40px;
+}
+.desktop h2{font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:16px;font-size:2rem}
+.desktop p{color:var(--grey);max-width:380px;line-height:1.7}
+@media(min-width:768px){.desktop{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+  <h2>This is a <em>mobile</em> experience.</h2>
+  <p>Open this link on your phone — or go straight to the quiz:</p>
+  <a class="btn ghost" href="https://mypowercode.app" style="margin-top:24px">Discover Your Power Code →</a>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<div class="stage" id="stage">
+
+  <!-- 1 HOOK -->
+  <section class="card on">
+    <h1>You have a power<br>you've been<br><em>apologising for.</em></h1>
+    <div class="rule"></div>
+    <h2>It's time to<br><em>own it.</em></h2>
+  </section>
+
+  <!-- 2 THE QUESTION -->
+  <section class="card">
+    <div class="eyebrow">The Question</div>
+    <h1>What is your<br><em>Power Code?</em></h1>
+    <p class="sub">Every person has a dominant archetype — a unique pattern of strength, purpose, and energy. Most people never discover theirs.</p>
+  </section>
+
+  <!-- 3 THE 12 ARCHETYPES -->
+  <section class="card">
+    <div class="eyebrow">12 Light Archetypes</div>
+    <h2>Which one<br>is <em>yours?</em></h2>
+    <div class="arch-grid">
+      <div class="arch-item">Angel</div>
+      <div class="arch-item">Hero</div>
+      <div class="arch-item">Saint</div>
+      <div class="arch-item">Muse</div>
+      <div class="arch-item">Ruler</div>
+      <div class="arch-item">Guide</div>
+      <div class="arch-item">Idol</div>
+      <div class="arch-item">Giant</div>
+      <div class="arch-item">Scout</div>
+      <div class="arch-item">Magus</div>
+      <div class="arch-item">Lover</div>
+      <div class="arch-item">Joker</div>
+    </div>
+  </section>
+
+  <!-- 4 HOW IT WORKS -->
+  <section class="card">
+    <div class="eyebrow">How It Works</div>
+    <h2>10 questions.<br><em>Your birthdate.</em><br>One answer.</h2>
+    <div class="stat">
+      <div><div class="n">10</div><div class="l">Questions</div></div>
+      <div><div class="n">12</div><div class="l">Archetypes</div></div>
+      <div><div class="n">6</div><div class="l">Languages</div></div>
+    </div>
+  </section>
+
+  <!-- 5 SAMPLE QUESTIONS -->
+  <section class="card">
+    <div class="eyebrow">A Glimpse Inside</div>
+    <div class="q-card">
+      <div class="q-num">Question 3 of 10</div>
+      <div class="q-text">When a group needs direction, you naturally...</div>
+    </div>
+    <div class="q-card" style="margin-top:10px;">
+      <div class="q-num">Question 7 of 10</div>
+      <div class="q-text">The thing people always come to you for is...</div>
+    </div>
+    <p class="sub" style="font-size:13px;">No right or wrong answers. Just yours.</p>
+  </section>
+
+  <!-- 6 WHAT YOU GET -->
+  <section class="card">
+    <div class="eyebrow">Your Full Reading</div>
+    <h2>Your archetype.<br>Your shadow.<br><em>Your power.</em></h2>
+    <p class="sub">A complete written reading of your dominant archetype — what drives you, what blocks you, and what becomes possible when you stop hiding it.</p>
+  </section>
+
+  <!-- 7 BY KEVIN -->
+  <section class="card">
+    <div class="eyebrow">Created by Kevin Polak</div>
+    <div class="sacred">
+      <div class="sacred-inner">KP</div>
+    </div>
+    <h2>30 years of<br>body intelligence.<br><em>In one reading.</em></h2>
+    <p class="sub">Therapist. Educator. Choreographer. Kevin built this from decades of direct practice with real people across Europe and Asia.</p>
+  </section>
+
+  <!-- 8 PRICE -->
+  <section class="card">
+    <div class="eyebrow">Your Investment</div>
+    <div class="price-wrap">
+      <div class="price-big">$12.99</div>
+      <div class="price-label">One-time · Instant delivery · Yours forever</div>
+    </div>
+    <p class="sub" style="margin-top:16px;">Available in English · Español · Nederlands · Français · Português · 中文</p>
+  </section>
+
+  <!-- 9 CTA -->
+  <section class="card">
+    <h1>Discover.<br>Unlock.<br><em>Become.</em></h1>
+    <a class="btn" id="cta" onclick="window.top.location.href=this.href;return false;" href="https://mypowercode.app">Take the Quiz →</a>
+    <p class="sub" style="margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">mypowercode.app · Kevin Polak</p>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">Tap to continue</div>
+<div class="zone l" onclick="go(-1)"></div>
+<div class="zone r" onclick="go(1)"></div>
+
+<script>
+var cards = document.querySelectorAll('.card');
+var idx = 0;
+var prog = document.getElementById('progress');
+cards.forEach(function(){ var s=document.createElement('div'); s.className='seg'; s.innerHTML='<i></i>'; prog.appendChild(s); });
+var segs = prog.children;
+function render(){
+  for(var i=0;i<cards.length;i++){
+    cards[i].classList.toggle('on', i===idx);
+    segs[i].classList.toggle('done', i<=idx);
+  }
+  var last = (idx===cards.length-1);
+  document.getElementById('hint').style.display = last ? 'none' : 'block';
+  document.querySelector('.zone.r').style.display = last ? 'none' : 'block';
+  document.querySelector('.zone.l').style.display = last ? 'none' : 'block';
+}
+function go(d){
+  var n = idx + d;
+  if(n<0 || n>cards.length-1) return;
+  idx = n; render();
+}
+var x0=null;
+document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX});
+document.addEventListener('touchend',function(e){
+  if(x0===null)return;
+  var dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>40) go(dx<0?1:-1);
+  x0=null;
+});
+render();
+</script>
+</body>
+</html>
