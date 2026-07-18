@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Body Never Lies — NOBODYLIES</title>
+<meta name="description" content="NOBODYLIES — Tap where your body speaks. Hear what it has been trying to say. A reading by somatic therapist Kevin Polak.">
+<meta property="og:title" content="The body never lies. — NOBODYLIES">
+<meta property="og:description" content="Tap where your body speaks. Hear what it has been trying to say.">
+<meta property="og:image" content="https://nobodylies.com/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=IBM+Plex+Mono:wght@300;400&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDE7DB;
+  --ink:#211B14;
+  --red:#8C2F26;
+  --red-dim:rgba(140,47,38,.2);
+  --ink-dim:rgba(33,27,20,.5);
+  --ink-dimmer:rgba(33,27,20,.3);
+  --line:rgba(33,27,20,.15);
+  --mark:rgba(140,47,38,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Newsreader',serif;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+/* aged paper texture */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;opacity:.6;
+}
+/* subtle horizontal rules like medical chart */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:repeating-linear-gradient(transparent,transparent 31px,rgba(33,27,20,.04) 31px,rgba(33,27,20,.04) 32px);
+  pointer-events:none;z-index:0;
+}
+
+/* PROGRESS */
+.progress{position:fixed;top:0;left:0;right:0;display:flex;gap:4px;padding:12px 16px 0;z-index:20}
+.seg{flex:1;height:1.5px;background:var(--line);overflow:hidden}
+.seg i{display:block;height:100%;width:0;background:var(--red);transition:width .35s}
+.seg.done i{width:100%}
+
+/* CARDS */
+.stage{height:100%;position:relative}
+.card{
+  position:absolute;inset:0;display:none;
+  flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:80px 32px 110px;
+  opacity:0;transform:translateY(14px);z-index:1;
+}
+.card.on{display:flex;animation:in .5s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+
+/* TYPOGRAPHY — medical chart style */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--red);margin-bottom:20px;
+}
+h1{font-family:'Fraunces',serif;font-weight:300;line-height:1.08;font-size:clamp(34px,10vw,52px)}
+h2{font-family:'Fraunces',serif;font-weight:300;line-height:1.08;font-size:clamp(26px,8vw,42px)}
+em{font-style:italic;color:var(--red)}
+.sub{color:var(--ink-dim);font-size:14.5px;line-height:1.85;max-width:300px;margin-top:20px;font-family:'Newsreader',serif}
+.rule{width:40px;height:1px;background:var(--red);margin:22px auto 0;opacity:.5}
+.mono{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--ink-dimmer);margin-top:8px}
+
+/* CHART — body map hint */
+.body-hint{
+  width:64px;height:64px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  background:var(--mark);
+  position:relative;
+}
+.body-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--red);
+  animation:throb 1.8s ease-in-out infinite;
+}
+@keyframes throb{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+/* BODY PARTS GRID */
+.parts-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);
+  margin-top:22px;width:100%;max-width:300px;
+  border:1px solid var(--line);
+}
+.part{
+  background:var(--paper);
+  padding:10px 6px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-dim);text-align:center;
+}
+.part.hl{color:var(--red);background:var(--mark)}
+
+/* QUOTE */
+.chart-quote{
+  border-left:2px solid var(--red);
+  padding:12px 16px;
+  text-align:left;
+  background:var(--mark);
+  max-width:300px;margin-top:22px;
+}
+.chart-quote p{
+  font-family:'Newsreader',serif;font-style:italic;
+  font-size:14px;line-height:1.75;color:var(--ink);
+}
+.chart-quote cite{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:8px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dimmer);margin-top:8px;display:block;
+}
+
+/* STAT */
+.stat{display:flex;gap:24px;margin-top:24px}
+.stat div{text-align:center}
+.stat .n{font-family:'Fraunces',serif;font-weight:300;font-size:36px;color:var(--red);line-height:1}
+.stat .l{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimmer);margin-top:5px}
+
+/* PRICE */
+.price-box{
+  border:1px solid var(--line);padding:18px 24px;
+  margin-top:20px;width:100%;max-width:280px;
+  background:rgba(255,255,255,.4);
+}
+.price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-bottom:1px solid var(--line);
+}
+.price-row:last-child{border-bottom:none}
+.price-row b{font-family:'Fraunces',serif;font-size:16px;font-weight:400;color:var(--ink)}
+.price-row span{font-family:'Fraunces',serif;font-size:18px;color:var(--red)}
+.price-free{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dimmer);margin-top:10px;text-align:center}
+
+/* CTA */
+.btn{
+  display:inline-block;margin-top:28px;
+  border:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);
+  text-decoration:none;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;
+  padding:16px 32px;font-weight:400;
+  position:relative;z-index:15;
+}
+.ghost{background:none;color:var(--red);border-color:var(--red)}
+
+/* HINT */
+.hint{
+  position:fixed;bottom:32px;left:0;right:0;
+  text-align:center;z-index:20;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-dimmer);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+.zone{position:fixed;top:0;bottom:0;width:34%;z-index:10}
+.zone.l{left:0}.zone.r{right:0;width:66%}
+
+/* DESKTOP */
+.desktop{
+  display:none;position:fixed;inset:0;
+  background:var(--paper);z-index:100;
+  flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:40px;
+}
+.desktop h2{font-family:'Fraunces',serif;font-weight:300;margin-bottom:16px;font-size:2rem}
+.desktop p{color:var(--ink-dim);max-width:380px;line-height:1.7;font-family:'Newsreader',serif}
+@media(min-width:768px){.desktop{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+  <h2>This is a <em>mobile</em> experience.</h2>
+  <p>Open this link on your phone — or go straight to the reading:</p>
+  <a class="btn ghost" href="https://nobodylies.com" style="margin-top:24px">Ask Your Body →</a>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<div class="stage" id="stage">
+
+  <!-- 1 HOOK -->
+  <section class="card on">
+    <h1>Your body<br>has been<br><em>speaking</em><br>your whole life.</h1>
+    <div class="rule"></div>
+    <p class="mono">You just haven't known how to listen.</p>
+  </section>
+
+  <!-- 2 THE TRUTH -->
+  <section class="card">
+    <div class="eyebrow">The Truth</div>
+    <h2>Pain that isn't<br><em>processed</em><br>becomes tension.</h2>
+    <div class="rule"></div>
+    <h2>Emotion not<br><em>expressed</em><br>becomes illness.</h2>
+  </section>
+
+  <!-- 3 WHAT IS NOBODYLIES -->
+  <section class="card">
+    <div class="body-hint"><div class="body-dot"></div></div>
+    <div class="eyebrow">NOBODYLIES</div>
+    <h2>Tap where<br>it speaks.</h2>
+    <p class="sub">Select a point on your body. Tell it how it speaks and when it began. Receive a reading through 30 years of somatic practice.</p>
+  </section>
+
+  <!-- 4 WHERE IS YOUR BODY SPEAKING -->
+  <section class="card">
+    <div class="eyebrow">Where is your body speaking?</div>
+    <div class="parts-grid">
+      <div class="part hl">Head</div>
+      <div class="part hl">Throat</div>
+      <div class="part hl">Chest</div>
+      <div class="part">Shoulders</div>
+      <div class="part hl">Heart</div>
+      <div class="part">Arms</div>
+      <div class="part hl">Stomach</div>
+      <div class="part">Hips</div>
+      <div class="part">Back</div>
+      <div class="part">Knees</div>
+      <div class="part hl">Pelvis</div>
+      <div class="part">Feet</div>
+    </div>
+    <p class="sub" style="font-size:12px;margin-top:14px;">Every point has a language. Every symptom has a story.</p>
+  </section>
+
+  <!-- 5 THE QUOTE -->
+  <section class="card">
+    <div class="eyebrow">Kevin Polak</div>
+    <div class="chart-quote">
+      <p>"The healer listens with the eyes and sees with the ears. The body does not deceive like the mind — it reveals what the mind may believe to be true."</p>
+      <cite>— Kevin Polak · Somatic Therapist · 30+ years · 2,500+ clients</cite>
+    </div>
+  </section>
+
+  <!-- 6 THE METHOD -->
+  <section class="card">
+    <div class="eyebrow">The Method</div>
+    <h2>Not a diagnosis.<br><em>A conversation.</em></h2>
+    <p class="sub">Anatomy. Movement. Chinese medicine. Language. Thirty years of listening to bodies — combined into one integrated reading.</p>
+    <div class="stat">
+      <div><div class="n">30+</div><div class="l">Years</div></div>
+      <div><div class="n">2500+</div><div class="l">Clients</div></div>
+      <div><div class="n">2</div><div class="l">Languages</div></div>
+    </div>
+  </section>
+
+  <!-- 7 FREE FIRST -->
+  <section class="card">
+    <div class="eyebrow">Start Free</div>
+    <h2>Your first<br>reading is<br><em>free.</em></h2>
+    <p class="sub">Tap a body point. Receive your reading. No account. No sign-up. The body doesn't need permission to speak.</p>
+  </section>
+
+  <!-- 8 PRICING -->
+  <section class="card">
+    <div class="eyebrow">Go Deeper</div>
+    <h2>A longer<br><em>conversation</em><br>with your body.</h2>
+    <div class="price-box">
+      <div class="price-row"><b>First reading</b><span>Free</span></div>
+      <div class="price-row"><b>Ten readings</b><span>$44</span></div>
+      <div class="price-row"><b>Thirty readings</b><span>$88</span></div>
+    </div>
+    <p class="price-free">No account · No expiry · Use on any device</p>
+  </section>
+
+  <!-- 9 CTA -->
+  <section class="card">
+    <h1>Nobody<br><em>lies.</em></h1>
+    <div class="rule"></div>
+    <h2>Especially<br>not your<br><em>body.</em></h2>
+    <a class="btn" id="cta" onclick="window.top.location.href=this.href;return false;" href="https://nobodylies.com">Ask Your Body →</a>
+    <p class="mono" style="margin-top:16px;">nobodylies.com · Kevin Polak</p>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">tap to continue</div>
+<div class="zone l" onclick="go(-1)"></div>
+<div class="zone r" onclick="go(1)"></div>
+
+<script>
+var cards = document.querySelectorAll('.card');
+var idx = 0;
+var prog = document.getElementById('progress');
+cards.forEach(function(){ var s=document.createElement('div'); s.className='seg'; s.innerHTML='<i></i>'; prog.appendChild(s); });
+var segs = prog.children;
+function render(){
+  for(var i=0;i<cards.length;i++){
+    cards[i].classList.toggle('on', i===idx);
+    segs[i].classList.toggle('done', i<=idx);
+  }
+  var last=(idx===cards.length-1);
+  document.getElementById('hint').style.display=last?'none':'block';
+  document.querySelector('.zone.r').style.display=last?'none':'block';
+  document.querySelector('.zone.l').style.display=last?'none':'block';
+}
+function go(d){
+  var n=idx+d;
+  if(n<0||n>cards.length-1)return;
+  idx=n;render();
+}
+var x0=null;
+document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX});
+document.addEventListener('touchend',function(e){
+  if(x0===null)return;
+  var dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>40)go(dx<0?1:-1);
+  x0=null;
+});
+render();
+</script>
+</body>
+</html>
