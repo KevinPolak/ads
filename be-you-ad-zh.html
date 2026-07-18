@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>做自己 BE YOU. — 自我掌控课程 · Kevin Polak</title>
+<meta name="description" content="做自己 BE YOU. Kevin Polak的自我掌控课程。身份认同·真相·自由。">
+<meta property="og:title" content="你的思维学会了它。你的思维可以忘掉它。— Kevin Polak">
+<meta property="og:description" content="做自己 BE YOU. 自我掌控课程。科学·经文·策略。">
+<meta property="og:image" content="https://kevincares.life/be-you-cover.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="1536">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://kevincares.life/be-you-cover.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0a0800;--gold:#C9A84C;--gold-dim:rgba(201,168,76,.3);--cream:rgba(255,248,220,.88);--grey:rgba(255,248,220,.5);--line:rgba(201,168,76,.25)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--ink);color:var(--cream);font-family:'Noto Sans SC','DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;user-select:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:50;opacity:.4}
+/* subtle golden glow at bottom */
+body::after{content:'';position:fixed;bottom:0;left:0;right:0;height:40%;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(201,140,0,.12) 0%,transparent 70%);pointer-events:none;z-index:0}
+.serif{font-family:'Cormorant Garamond',serif}
+.cinzel{font-family:'Cinzel',serif}
+
+/* PROGRESS */
+.progress{position:fixed;top:0;left:0;right:0;display:flex;gap:5px;padding:14px 16px 0;z-index:20}
+.seg{flex:1;height:2px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden}
+.seg i{display:block;height:100%;width:0;background:var(--gold);transition:width .35s}
+.seg.done i{width:100%}
+
+/* CARDS */
+.stage{height:100%;position:relative}
+.card{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 32px 110px;opacity:0;transform:translateY(14px);z-index:1}
+.card.on{display:flex;animation:in .5s forwards}
+@keyframes in{to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.1;font-size:clamp(38px,11vw,56px)}
+h2{font-family:'Cormorant Garamond',serif;font-weight:300;line-height:1.1;font-size:clamp(30px,9vw,46px)}
+em{font-style:italic;color:var(--gold)}
+.sub{color:var(--grey);font-size:15px;line-height:1.8;max-width:300px;margin-top:20px}
+.rule{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);margin:24px auto 0}
+.diamond{color:var(--gold);font-size:10px;margin:18px auto;display:block}
+
+/* BIG WORD */
+.bigword{font-family:'Cinzel',serif;font-weight:700;font-size:clamp(60px,18vw,90px);color:var(--gold);line-height:1;letter-spacing:.04em;background:linear-gradient(160deg,#f5e6c0 0%,#e8c97a 20%,#C9A84C 40%,#f0d878 55%,#d4a030 70%,#C9A84C 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* THREE PILLARS */
+.pillars{display:flex;gap:0;margin-top:28px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;width:100%;max-width:300px}
+.pillar{flex:1;text-align:center;position:relative}
+.pillar:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--gold-dim)}
+.p-icon{font-size:1.1rem;color:var(--gold);display:block;margin-bottom:6px}
+.p-name{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+
+/* STACK */
+.stack{display:flex;flex-direction:column;gap:12px;margin-top:26px;width:100%;max-width:300px}
+.row{border:1px solid var(--line);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(201,168,76,.03)}
+.row b{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:17px;letter-spacing:.06em;color:var(--cream)}
+.row span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+
+/* STAT */
+.stat{display:flex;gap:24px;margin-top:26px}
+.stat div{text-align:center}
+.stat .n{font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--gold);line-height:1}
+.stat .l{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-top:5px}
+
+/* SCIENCE LINE */
+.triple{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,248,220,.7);margin-top:22px}
+.triple em{color:var(--gold);font-style:normal}
+
+/* PRICE */
+.bignum{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,15vw,72px);color:var(--gold);line-height:1}
+.price-note{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--grey);margin-top:10px}
+
+/* CTA */
+.btn{display:inline-block;margin-top:30px;border:1px solid var(--gold);background:var(--gold);color:#000;text-decoration:none;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:17px 36px;font-weight:700;position:relative;z-index:15}
+.ghost{background:none;color:var(--gold);font-weight:400}
+
+/* HINT + NAV ZONES */
+.hint{position:fixed;bottom:32px;left:0;right:0;text-align:center;z-index:20;font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.28);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:.28}50%{opacity:.75}}
+.zone{position:fixed;top:0;bottom:0;width:34%;z-index:10}
+.zone.l{left:0}.zone.r{right:0;width:66%}
+
+/* DESKTOP NOTICE */
+.desktop{display:none;position:fixed;inset:0;background:var(--ink);z-index:100;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px}
+.desktop h2{font-family:'Cormorant Garamond',serif;font-weight:300;margin-bottom:16px;font-size:2rem}
+.desktop p{color:var(--grey);max-width:380px;line-height:1.7}
+.desktop a{color:var(--gold)}
+@media(min-width:768px){.desktop{display:flex}}
+</style>
+</head>
+<body>
+
+<div class="desktop">
+  <h2 class="serif">这是一个<em>手机</em>体验。</h2>
+  <p>请在手机上打开此链接——或直接进入完整页面：</p>
+  <a class="btn ghost" href="https://kevincares.life/be-you.html" style="margin-top:24px">探索 BE YOU →</a>
+</div>
+
+<div class="progress" id="progress"></div>
+
+<div class="stage" id="stage">
+
+  <!-- 1 HOOK -->
+  <section class="card on">
+    <h1>你学会了<br>成为<em>别人。</em></h1>
+    <div class="rule"></div>
+    <h2>是时候<br><em>做自己了。</em></h2>
+  </section>
+
+  <!-- 2 THE QUESTION -->
+  <section class="card">
+    <div class="eyebrow">真正的问题</div>
+    <h2>没有角色、<br>没有信念、<br>没有表演，<br>你是<em>谁？</em></h2>
+  </section>
+
+  <!-- 3 THE TAGLINE -->
+  <section class="card">
+    <h1>你的思维<br>学会了它。</h1>
+    <div class="rule"></div>
+    <h1>你的思维可以<br><em>忘掉它。</em></h1>
+  </section>
+
+  <!-- 4 WHAT IT IS -->
+  <section class="card">
+    <div class="eyebrow">课程介绍</div>
+    <div class="bigword">BE YOU.</div>
+    <div class="pillars">
+      <div class="pillar"><span class="p-icon">☉</span><div class="p-name">身份认同</div></div>
+      <div class="pillar"><span class="p-icon">✦</span><div class="p-name">真相</div></div>
+      <div class="pillar"><span class="p-icon">◎</span><div class="p-name">自由</div></div>
+    </div>
+  </section>
+
+  <!-- 5 HOW IT WORKS -->
+  <section class="card">
+    <div class="eyebrow">课程如何运作</div>
+    <h2>12个作业。<br><em>只有你自己。</em><br>诚实的答案。</h2>
+    <p class="sub">每个作业都是一面结构化的镜子。你写下真实的内容——不是听起来正确的。只有你和页面。</p>
+  </section>
+
+  <!-- 6 KEVIN'S INVOLVEMENT -->
+  <section class="card">
+    <div class="eyebrow">Kevin的亲身参与</div>
+    <h2>他亲自<br>阅读<br><em>你的作品。</em></h2>
+    <p class="sub">完成第6和第12个作业后——Kevin亲自阅读所有内容并直接回复你。没有AI。没有助手。Kevin本人。</p>
+  </section>
+
+  <!-- 7 SCIENCE SCRIPTURE STRATEGY -->
+  <section class="card">
+    <div class="eyebrow">三个视角。一个方向。</div>
+    <h2><em>科学。</em><br>经文。<br>策略。</h2>
+    <p class="sub">真实的心理学框架。古老的智慧。实用的工具。应用于你的真实生活——而非案例研究。</p>
+    <div class="stat">
+      <div><div class="n">12</div><div class="l">作业</div></div>
+      <div><div class="n">2×</div><div class="l">Kevin反馈</div></div>
+      <div><div class="n">5</div><div class="l">语言</div></div>
+    </div>
+  </section>
+
+  <!-- 8 PRICING -->
+  <section class="card">
+    <div class="eyebrow">课程费用</div>
+    <div class="stack">
+      <div class="row"><b>第一部分 — 第1-6课</b><span>¥666</span></div>
+      <div class="row"><b>第二部分 — 第7-12课</b><span>¥1,333</span></div>
+      <div class="row"><b>完整课程 + ADEPT</b><span>¥1,666</span></div>
+    </div>
+    <p class="sub" style="font-size:12px;">无截止日期。永久有效。终身所有。<br>推荐3人——课程免费。</p>
+  </section>
+
+  <!-- 9 CTA -->
+  <section class="card">
+    <h2>Stop performing.<br><em>Start being.</em></h2>
+    <a class="btn" id="cta" onclick="window.top.location.href=this.href;return false;" href="https://kevincares.life/be-you.html">探索 BE YOU →</a>
+    <p class="sub" style="margin-top:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;">kevincares.life · By Kevin Polak</p>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">点击继续</div>
+<div class="zone l" onclick="go(-1)"></div>
+<div class="zone r" onclick="go(1)"></div>
+
+<script>
+var cards = document.querySelectorAll('.card');
+var idx = 0;
+
+var prog = document.getElementById('progress');
+cards.forEach(function(){ var s=document.createElement('div'); s.className='seg'; s.innerHTML='<i></i>'; prog.appendChild(s); });
+var segs = prog.children;
+
+function render(){
+  for(var i=0;i<cards.length;i++){
+    cards[i].classList.toggle('on', i===idx);
+    segs[i].classList.toggle('done', i<=idx);
+  }
+  var last = (idx===cards.length-1);
+  document.getElementById('hint').style.display = last ? 'none' : 'block';
+  document.querySelector('.zone.r').style.display = last ? 'none' : 'block';
+  document.querySelector('.zone.l').style.display = last ? 'none' : 'block';
+}
+function go(d){
+  var n = idx + d;
+  if(n<0 || n>cards.length-1) return;
+  idx = n;
+  render();
+}
+var x0=null;
+document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX});
+document.addEventListener('touchend',function(e){
+  if(x0===null)return;
+  var dx=e.changedTouches[0].clientX-x0;
+  if(Math.abs(dx)>40) go(dx<0?1:-1);
+  x0=null;
+});
+render();
+</script>
+</body>
+</html>
